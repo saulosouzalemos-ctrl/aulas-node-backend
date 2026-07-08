@@ -1,40 +1,46 @@
 
 import express from 'express'
-import bancoDeDados from './repository'
- 
 
  
-app.get("/api/pessoa/:id", (req, res) => {
-    const id  = req.params.id
-    const pessoa = bancoDeDados.find(it => it.id == id)
-    if(!pessoa) {
+const app = express()
 
-        res.send({ pessoa })
-    
-}})
-app.get("/api/pessoa/", (req, res) => {
-    const { id, name } = req.query
+//somar
+app.get("/api/v1/somar", (req, res) => {
+  const { num1, num2 } = req.query
+  const resultado = Number (num1) + Number(num2)
 
-    if(!id || !name) {
-
-        
-        bancoDeDados.push({ id, name })
-        console.log(bancoDeDados)
-        
-        res.send({ message: "Pessoa criada com sucesso" })
-    }
-
-    //const pessoa = {
-      //  nome: "Neymar Jr",
-        //idade: 34,
-        //cpf: "123.456.789-10"
-        
-    //}
-
- 
+  res.status(200).send({ message: resultado })
 })
- 
+
+//subtrair
+app.get("/api/v1/subtrair", (req, res) => {
+  const { num1, num2 } = req.query
+  const resultado = Number (num1) - Number(num2)
+
+  res.status(200).send({ message: resultado })
+})
+
+//multiplicar
+app.get("/api/v1/multiplicar", (req, res) => {
+  const { num1, num2 } = req.query
+  const resultado = Number (num1) * Number(num2)
+
+  res.status(200).send({ message: resultado })
+})
+
+//dividir
+app.get("/api/v1/dividir", (req, res) => {
+  const { num1, num2 } = req.query
+  const resultado = Number (num1) / Number(num2)
+
+  res.status(200).send({ message: resultado })
+})
+
 app.listen(3000, () => {
-    console.log("Servidor ouvindo na porta 3000")
+  console.log('Servidor rodando na porta 3000')
 })
  
+
+
+ 
+
