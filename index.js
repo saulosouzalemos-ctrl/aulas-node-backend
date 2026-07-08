@@ -1,20 +1,38 @@
+
 import express from 'express'
+import bancoDeDados from './repository'
  
 
-const app = express()
+ 
+app.get("/api/pessoa/:id", (req, res) => {
+    const id  = req.params.id
+    const pessoa = bancoDeDados.find(it => it.id == id)
+    if(!pessoa) {
 
-app.get("/api/v1/somar", (req, res) => {
-   
-    console.log(req.query)
+        res.send({ pessoa })
+    
+}})
+app.get("/api/pessoa/", (req, res) => {
+    const { id, name } = req.query
+
+    if(!id || !name) {
+
+        
+        bancoDeDados.push({ id, name })
+        console.log(bancoDeDados)
+        
+        res.send({ message: "Pessoa criada com sucesso" })
+    }
+
+    //const pessoa = {
+      //  nome: "Neymar Jr",
+        //idade: 34,
+        //cpf: "123.456.789-10"
+        
+    //}
+
  
-    const num1 = Number(req.query.num1)
-    const num2 = Number(req.query.num2)
-    const resultado = num1 + num2
- 
-    res.send({ resultado, "Tarefa": "Pesquise sobre QueryParams" })
 })
- 
-
  
 app.listen(3000, () => {
     console.log("Servidor ouvindo na porta 3000")
